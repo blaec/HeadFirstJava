@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 public class TwoButton {
     JFrame frame;
     JLabel label;
+    private int x = 70;
+    private int y = 70;
 
     public static void main(String[] args) {
         TwoButton gui = new TwoButton();
@@ -36,6 +38,27 @@ public class TwoButton {
         frame.setVisible(true);
     }
 
+    private class MyDrawPanel extends JPanel {
+        public void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g;
+
+            g2d.setPaint(new GradientPaint(70, 70, getRandomColor(), 150, 150, getRandomColor()));
+            g.fillOval(x, y, 100, 100);
+        }
+
+        private int getRandomHue() {
+            return (int) (Math.random() * 255);
+        }
+
+        private Color getRandomColor() {
+            int red = getRandomHue();
+            int green = getRandomHue();
+            int blue = getRandomHue();
+
+            return new Color(red, green, blue);
+        }
+    }
+
     private class LabelListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             label.setText("Ouch!");
@@ -44,6 +67,8 @@ public class TwoButton {
 
     private class ColorListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            x++;
+            y++;
             frame.repaint();
         }
     }

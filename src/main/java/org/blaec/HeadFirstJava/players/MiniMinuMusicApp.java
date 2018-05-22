@@ -1,4 +1,4 @@
-package org.blaec.HeadFirstJava;
+package org.blaec.HeadFirstJava.players;
 
 import javax.sound.midi.*;
 

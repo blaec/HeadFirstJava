@@ -1,10 +1,10 @@
-package org.blaec.HeadFirstJava;
+package org.blaec.HeadFirstJava.players;
 
 import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
 
-import static org.blaec.HeadFirstJava.MidiUtil.makeEvent;
+import static org.blaec.HeadFirstJava.players.MidiUtil.makeEvent;
 
 public class MiniMusicPlayer3 {
     static JFrame f = new JFrame("My First Music Video");

@@ -1,8 +1,8 @@
-package org.blaec.HeadFirstJava;
+package org.blaec.HeadFirstJava.players;
 
 import javax.sound.midi.*;
 
-import static org.blaec.HeadFirstJava.MidiUtil.makeEvent;
+import static org.blaec.HeadFirstJava.players.MidiUtil.makeEvent;
 
 public class MiniMusicPlayer {
     public static void main(String[] args) {

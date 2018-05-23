@@ -28,23 +28,12 @@ public class QuizCardBuilder {
         frame = new JFrame("Quiz Card Builder");
         JPanel mainPanel = new JPanel();
         Font bigFont = new Font("sanserif", Font.BOLD, 24);
-        question = new JTextArea(6, 20);
-        question.setLineWrap(true);
-        question.setWrapStyleWord(true);
-        question.setFont(bigFont);
 
-        JScrollPane qScroller = new JScrollPane(question);
-        qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        question = addTextArea(bigFont);
+        answer = addTextArea(bigFont);
 
-        answer = new JTextArea(6, 20);
-        answer.setLineWrap(true);
-        answer.setWrapStyleWord(true);
-        answer.setFont(bigFont);
-
-        JScrollPane aScroller = new JScrollPane(answer);
-        aScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        aScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane qScroller = addScrollPane(question);
+        JScrollPane aScroller = addScrollPane(answer);
 
         JButton nextButton = new JButton("Next Card");
 
@@ -64,7 +53,6 @@ public class QuizCardBuilder {
         JMenuItem newMenuItem = new JMenuItem("New");
         JMenuItem saveMenuItem= new JMenuItem("Save");
         newMenuItem.addActionListener(new NewMenuListener());
-
         saveMenuItem.addActionListener(new SaveMenuListener());
         fileMenu.add(newMenuItem);
         fileMenu.add(saveMenuItem);
@@ -73,6 +61,23 @@ public class QuizCardBuilder {
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         frame.setSize(500,600);
         frame.setVisible(true);
+    }
+
+    private JTextArea addTextArea(Font font) {
+        JTextArea textArea = new JTextArea(6, 20);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setFont(font);
+
+        return textArea;
+    }
+
+    private JScrollPane addScrollPane(JTextArea textArea) {
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        return scrollPane;
     }
 
     private class NextCardListener implements ActionListener {

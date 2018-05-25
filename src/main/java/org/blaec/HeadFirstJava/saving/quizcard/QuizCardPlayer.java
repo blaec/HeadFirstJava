@@ -6,13 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.blaec.HeadFirstJava.saving.quizcard.utils.QuizUtils.addScrollPane;
-import static org.blaec.HeadFirstJava.saving.quizcard.utils.QuizUtils.getDilimiter;
+import static utils.SwingUtils.addScrollPane;
+import static utils.SwingUtils.getDelimiter;
 
 public class QuizCardPlayer {
     private JTextArea display;
@@ -79,7 +78,7 @@ public class QuizCardPlayer {
     }
 
     private void makeCard(String lineToParse) {
-        String[] result = lineToParse.split(getDilimiter());
+        String[] result = lineToParse.split(getDelimiter());
         QuizCard card = new QuizCard(result[0], result[1]);
         cardList.add(card);
         System.out.println("made a card");

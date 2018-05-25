@@ -1,8 +1,5 @@
 package org.blaec.HeadFirstJava.beatbox;
 
-import org.blaec.HeadFirstJava.layouts.Panel1;
-import org.blaec.HeadFirstJava.saving.quizcard.QuizCard;
-
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
@@ -15,8 +12,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.blaec.HeadFirstJava.saving.quizcard.utils.QuizUtils.getDilimiter;
-import static org.blaec.HeadFirstJava.utils.MidiUtil.makeEvent;
+import static utils.SwingUtils.addButton;
+import static utils.SwingUtils.getDelimiter;
+import static utils.MidiUtil.makeEvent;
 
 public class BeatBox {
 
@@ -169,12 +167,6 @@ public class BeatBox {
         }
     }
 
-    private void addButton(String name, Box box, ActionListener listener) {
-        JButton button = new JButton(name);
-        button.addActionListener(listener);
-        box.add(button);
-    }
-
     private class MySendListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             boolean[] checkboxState = new boolean[256];
@@ -192,7 +184,7 @@ public class BeatBox {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileSave.getSelectedFile()));
                 for (boolean check : checkboxState) {
-                    writer.write(check + getDilimiter());
+                    writer.write(check + getDelimiter());
                 }
                 writer.close();
 
@@ -211,7 +203,7 @@ public class BeatBox {
 
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(fileOpen.getSelectedFile()));
-                result = reader.readLine().split(getDilimiter());
+                result = reader.readLine().split(getDelimiter());
                 reader.close();
             } catch (Exception el) {
                 el.printStackTrace();

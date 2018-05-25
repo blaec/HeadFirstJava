@@ -1,4 +1,4 @@
-package org.blaec.HeadFirstJava.utils;
+package utils;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;

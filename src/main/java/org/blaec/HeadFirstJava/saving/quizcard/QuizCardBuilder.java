@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.blaec.HeadFirstJava.saving.quizcard.utils.QuizUtils.addScrollPane;
-import static org.blaec.HeadFirstJava.saving.quizcard.utils.QuizUtils.getDilimiter;
+import static utils.SwingUtils.addScrollPane;
+import static utils.SwingUtils.getDelimiter;
 
 public class QuizCardBuilder {
     private JTextArea question;
@@ -99,7 +99,7 @@ public class QuizCardBuilder {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
             for (QuizCard card : cardList) {
-                writer.write(card.getQuestion() + getDilimiter());
+                writer.write(card.getQuestion() + getDelimiter());
                 writer.write(card.getAnswer() + "\n");
             }
             writer.close();

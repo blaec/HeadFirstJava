@@ -4,7 +4,7 @@ import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
 
-import static org.blaec.HeadFirstJava.utils.MidiUtil.makeEvent;
+import static utils.MidiUtil.makeEvent;
 
 public class MiniMusicPlayer3 {
     static JFrame f = new JFrame("My First Music Video");

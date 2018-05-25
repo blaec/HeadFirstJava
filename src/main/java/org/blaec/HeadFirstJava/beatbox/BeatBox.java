@@ -1,5 +1,8 @@
 package org.blaec.HeadFirstJava.beatbox;
 
+import org.blaec.HeadFirstJava.layouts.Panel1;
+import org.blaec.HeadFirstJava.saving.quizcard.QuizCard;
+
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
@@ -8,9 +11,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.blaec.HeadFirstJava.saving.quizcard.utils.QuizUtils.getDilimiter;
 import static org.blaec.HeadFirstJava.utils.MidiUtil.makeEvent;
 
 public class BeatBox {
@@ -45,6 +50,8 @@ public class BeatBox {
         addButton("Stop", buttonBox, new MyStopListener());
         addButton("Tempo Up", buttonBox, new MyUpTempoListener());
         addButton("Tempo Down", buttonBox, new MyDownTempoListener());
+        addButton("serializeIt", buttonBox, new MySendListener());
+        addButton("restore", buttonBox, new MyReadInListener());
 
         Box nameBox = new Box(BoxLayout.Y_AXIS);
         for (int i = 0; i < 16; i++) {
@@ -129,9 +136,9 @@ public class BeatBox {
         for (int i = 0; i < 16; i++) {
             int key = list[i];
 
-            if (key !=0) {
+            if (key != 0) {
                 track.add(makeEvent(144, 9, key, 100, i));
-                track.add(makeEvent(128, 9, key, 100, i+1));
+                track.add(makeEvent(128, 9, key, 100, i + 1));
             }
         }
     }
@@ -166,5 +173,58 @@ public class BeatBox {
         JButton button = new JButton(name);
         button.addActionListener(listener);
         box.add(button);
+    }
+
+    private class MySendListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            boolean[] checkboxState = new boolean[256];
+
+            for (int i = 0; i < 256; i++) {
+                JCheckBox check = checkBoxList.get(i);
+                if (check.isSelected()) {
+                    checkboxState[i] = true;
+                }
+            }
+
+            JFileChooser fileSave = new JFileChooser();
+            fileSave.showSaveDialog(theFrame);
+
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(fileSave.getSelectedFile()));
+                for (boolean check : checkboxState) {
+                    writer.write(check + getDilimiter());
+                }
+                writer.close();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private class MyReadInListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String[] result = null;
+
+            JFileChooser fileOpen = new JFileChooser();
+            fileOpen.showOpenDialog(theFrame);
+
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(fileOpen.getSelectedFile()));
+                result = reader.readLine().split(getDilimiter());
+                reader.close();
+            } catch (Exception el) {
+                el.printStackTrace();
+            }
+
+            for (int i = 0; i < 256; i++) {
+                JCheckBox check = checkBoxList.get(i);
+                if (result[i].equals("true")) {
+                    check.setSelected(true);
+                } else {
+                    check.setSelected(false);
+                }
+            }
+        }
     }
 }

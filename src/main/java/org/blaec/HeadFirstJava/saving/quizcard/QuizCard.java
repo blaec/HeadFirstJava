@@ -1,7 +1,5 @@
 package org.blaec.HeadFirstJava.saving.quizcard;
 
-import javax.swing.*;
-
 public class QuizCard {
     private String question;
     private String answer;

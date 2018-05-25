@@ -16,6 +16,7 @@ public class RyanAndMonicaJob implements  Runnable {
     }
     public void run() {
         for (int i = 0; i < 10; i++) {
+            System.out.println(Thread.currentThread().getName() + " is about to enter makeWithdrawal");
             makeWithdrawal(10);
             if (account.getBalance() < 0) {
                 System.out.println("Overdrawn!");
@@ -23,7 +24,8 @@ public class RyanAndMonicaJob implements  Runnable {
         }
     }
 
-    private void makeWithdrawal(int amount) {
+    private synchronized void  makeWithdrawal(int amount) {
+        System.out.println("===>" + Thread.currentThread().getName() + " entered makeWithdrawal ===>");
         if (account.getBalance() >= amount) {
             System.out.println(Thread.currentThread().getName() + " is about to withdraw");
             try {
@@ -38,5 +40,6 @@ public class RyanAndMonicaJob implements  Runnable {
         } else {
             System.out.println("Sorry, not enough for " + Thread.currentThread().getName());
         }
+        System.out.println("<===" + Thread.currentThread().getName() + " exited makeWithdrawal <===");
     }
 }

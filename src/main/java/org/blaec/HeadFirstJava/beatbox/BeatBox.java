@@ -41,21 +41,10 @@ public class BeatBox {
         checkBoxList = new ArrayList<JCheckBox>();
         Box buttonBox = new Box(BoxLayout.Y_AXIS);
 
-        JButton start = new JButton("Start");
-        start.addActionListener(new MyStartListener());
-        buttonBox.add(start);
-
-        JButton stop = new JButton("Stop");
-        stop.addActionListener(new MyStopListener());
-        buttonBox.add(stop);
-
-        JButton upTempo = new JButton("Tempo Up");
-        upTempo.addActionListener(new MyUpTempoListener());
-        buttonBox.add(upTempo);
-
-        JButton downTempo = new JButton("Tempo Down");
-        downTempo.addActionListener(new MyDownTempoListener());
-        buttonBox.add(downTempo);
+        addButton("Start", buttonBox, new MyStartListener());
+        addButton("Stop", buttonBox, new MyStopListener());
+        addButton("Tempo Up", buttonBox, new MyUpTempoListener());
+        addButton("Tempo Down", buttonBox, new MyDownTempoListener());
 
         Box nameBox = new Box(BoxLayout.Y_AXIS);
         for (int i = 0; i < 16; i++) {
@@ -171,5 +160,11 @@ public class BeatBox {
             float tempoFactor = sequencer.getTempoFactor();
             sequencer.setTempoFactor((float) (tempoFactor * .97));
         }
+    }
+
+    private void addButton(String name, Box box, ActionListener listener) {
+        JButton button = new JButton(name);
+        button.addActionListener(listener);
+        box.add(button);
     }
 }

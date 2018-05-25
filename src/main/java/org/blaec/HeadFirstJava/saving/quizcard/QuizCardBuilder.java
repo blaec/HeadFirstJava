@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.blaec.HeadFirstJava.saving.quizcard.utils.QuizUtils.addScrollPane;
+import static org.blaec.HeadFirstJava.saving.quizcard.utils.QuizUtils.getDilimiter;
+
 public class QuizCardBuilder {
     private JTextArea question;
     private JTextArea answer;
@@ -51,7 +54,7 @@ public class QuizCardBuilder {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenuItem newMenuItem = new JMenuItem("New");
-        JMenuItem saveMenuItem= new JMenuItem("Save");
+        JMenuItem saveMenuItem = new JMenuItem("Save");
         newMenuItem.addActionListener(new NewMenuListener());
         saveMenuItem.addActionListener(new SaveMenuListener());
         fileMenu.add(newMenuItem);
@@ -59,7 +62,7 @@ public class QuizCardBuilder {
         menuBar.add(fileMenu);
         frame.setJMenuBar(menuBar);
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
-        frame.setSize(500,600);
+        frame.setSize(500, 600);
         frame.setVisible(true);
     }
 
@@ -70,14 +73,6 @@ public class QuizCardBuilder {
         textArea.setFont(font);
 
         return textArea;
-    }
-
-    private JScrollPane addScrollPane(JTextArea textArea) {
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        return scrollPane;
     }
 
     private class NextCardListener implements ActionListener {
@@ -103,8 +98,8 @@ public class QuizCardBuilder {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
-            for (QuizCard card:cardList) {
-                writer.write(card.getQuestion()+"/");
+            for (QuizCard card : cardList) {
+                writer.write(card.getQuestion() + getDilimiter());
                 writer.write(card.getAnswer() + "\n");
             }
             writer.close();

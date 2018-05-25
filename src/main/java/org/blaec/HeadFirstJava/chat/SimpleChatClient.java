@@ -14,11 +14,11 @@ import static utils.SwingUtils.addButton;
 import static utils.SwingUtils.addScrollPane;
 
 public class SimpleChatClient {
-    JTextArea incoming;
-    JTextField outgoing;
-    BufferedReader reader;
-    PrintWriter writer;
-    Socket sock;
+    private JTextArea incoming;
+    private JTextField outgoing;
+    private BufferedReader reader;
+    private PrintWriter writer;
+    private Socket sock;
 
     public static void main(String[] args) {
         new SimpleChatClient().go();
@@ -35,21 +35,18 @@ public class SimpleChatClient {
         incoming.setEditable(false);
         JScrollPane qScroller = addScrollPane(incoming);
 
-        outgoing = new JTextField(20);
+        outgoing = new JTextField(45);
 
-        addButton("Send", mainPanel, new SendButtonListener());
-//        JButton sendButton = new JButton("Send");
-//        sendButton.addActionListener(new SendButtonListener());
-//        mainPanel.add(sendButton);
         mainPanel.add(qScroller);
         mainPanel.add(outgoing);
+        addButton("Send", mainPanel, new SendButtonListener());
         setUpNetworking();
 
         Thread readerThread = new Thread(new IncomingReader());
         readerThread.start();
 
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
-        frame.setSize(400, 500);
+        frame.setSize(600, 330);
         frame.setVisible(true);
     }
 
@@ -88,9 +85,9 @@ public class SimpleChatClient {
             String message;
 
             try {
-
                 while ((message = reader.readLine()) != null) {
-                    System.out.println("read " + "\n");
+                    System.out.println("read " + message);
+                    incoming.append(message + "\n");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
